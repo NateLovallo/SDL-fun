@@ -8,4 +8,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REEN
 
 add_executable (sdl-test test.cpp)
 
-target_link_libraries (sdl-test LINK_PUBLIC SDL)
+target_link_libraries (sdl-test LINK_PUBLIC SDL2)
