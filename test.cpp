@@ -30,18 +30,42 @@ int main(int argc, char* args[])
    SDL_FillRect( screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0, 0, 0 ));
    
    // Draw a green box
+
+   //SDL_FillRect(screenSurface,&rectBox,SDL_MapRGB( screenSurface->format, 0, 255, 0 ));
+   
+   
+   
+   SDL_Surface* helloWorld = NULL;
+   SDL_Surface* helloWorldOptimized = NULL;
+   helloWorld = IMG_Load("../gauge.png");
+   
+   if (helloWorld == NULL)
+   {
+      fprintf(stderr,"Coudln't load image: %s\n",SDL_GetError());
+      return -1;
+   }
+   
+   helloWorldOptimized = SDL_ConvertSurface( helloWorld, screenSurface->format, 0 );
+   SDL_FreeSurface( helloWorld );
+   
+   SDL_Rect rectBg = {0,0,600,400};
+   SDL_FillRect(screenSurface,&rectBg,SDL_MapRGB( screenSurface->format, 0, 0, 0 ));
+   
+   SDL_BlitSurface( helloWorldOptimized, NULL, screenSurface, NULL );
+   
    SDL_Rect rectBox = {0,0,100,100};
    SDL_FillRect(screenSurface,&rectBox,SDL_MapRGB( screenSurface->format, 0, 255, 0 ));
-   TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 28);
    
-   SDL_Color textColor           = { 0x00, 0x00, 0x00};
-   SDL_Color textBackgroundColor = { 0xFF, 0xFF, 0xFF};
-   /*
-   SDL_Surface* textSurface = TTF_RenderText_Shaded(
-      font, 
-      "POOP", 
-      textColor,
-      textBackgroundColor);*/
+   //TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 28);
+   
+   //SDL_Color textColor           = { 0x00, 0x00, 0x00};
+   //SDL_Color textBackgroundColor = { 0xFF, 0xFF, 0xFF};
+   
+   //SDL_Surface* textSurface = TTF_RenderText_Shaded(
+   //   font, 
+   //   "POOP", 
+   //   textColor,
+   //   textBackgroundColor);
    //SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
    //SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, textSurface);
    
@@ -49,7 +73,7 @@ int main(int argc, char* args[])
 
 
    // Update the surface
-   SDL_UpdateWindowSurface( window );
+   
 
    bool run = true;
    
@@ -67,6 +91,8 @@ int main(int argc, char* args[])
             run = false;
          }
       }
+      
+      SDL_UpdateWindowSurface( window );
       
    }
 
